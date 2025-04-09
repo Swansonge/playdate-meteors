@@ -1,0 +1,6 @@
+name=meteors
+author=Swansonge
+description=Asteroid-like game for Playdate
+bundleID=com.swansonge.meteors
+version=1.0.0
+buildNumber=1
