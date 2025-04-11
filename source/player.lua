@@ -38,6 +38,13 @@ function Player:init(xOffset, yOffset, side)
         gfx.fillPolygon(self.smallPolygon)
     gfx.unlockFocus()
     self:setImage(playerImage)
+
+    --collision settings
+    self:setCollideRect(self.width*0.2, self.height*0.2, self.width*0.8, self.height*0.8)
+    self:setGroups(PLAYER_GROUP)
+    --only collides with meteors, not bullets
+    self:setCollidesWithGroups(METEOR_GROUP)
+
     self:moveTo(xOffset, yOffset)
     self:add()    
 
@@ -52,9 +59,11 @@ function Player:update()
     -- shoot bullets
     if pd.buttonJustPressed(pd.kButtonA) then
 
-        local x, y = calcBulletOffset(self:getRotation(), (self.h / 2) - 1, 0, -h/2)
+        local x, y = calcAngleOffset(self:getRotation(), (self.h / 2) - 1, 0, -h/2)
         local bulletX = self.x + x
         local bulletY = self.y + y
+
+        --turn off collisions before spawning bullet so bullet doesn't collide with player
         Bullet(bulletX, bulletY, 5, self:getRotation())
         
     end
