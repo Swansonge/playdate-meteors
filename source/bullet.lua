@@ -43,8 +43,10 @@ function Bullet:update()
         for index, collision in ipairs(collisions) do
             local collidedObject = collision['other']
             if collidedObject:isa(Meteor) then
-                collidedObject:remove()
-                --incrementScore()
+
+
+                collidedObject:split()
+                incrementScore(collidedObject.scoreMult)
                 setShakeAmount(2)
             end
         end
@@ -56,3 +58,4 @@ function Bullet:update()
     end
     
 end
+

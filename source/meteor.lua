@@ -3,11 +3,13 @@ local gfx <const> = pd.graphics
 
 class('Meteor').extends(gfx.sprite)
 
-function Meteor:init(speed, size, angle, x, y)
+function Meteor:init(speed, size, angle, scoreMult, x, y)
 
     self.speed = speed
     self.angle = angle
     self.size = size * 2
+    --default value from spawner is 1. Worth more then meteor splits
+    self.scoreMult = scoreMult
 
     -- draw meteor as circle
     local meteorImage = gfx.image.new(self.size * 2, self.size *2)
@@ -40,6 +42,10 @@ function Meteor:update()
 
                 setShakeAmount(5)
                 -- TRIGGER GAME OVVER!!
+
+            elseif collidedObject:isa(Bullet) then
+                self:split()
+                setShakeAmount(2)
             end
         end
         self:remove()
@@ -50,4 +56,25 @@ function Meteor:update()
         self:remove()
     end
     
+end
+
+-- Method to be called when meteor needs to be split in 2. Called when collides with bullet.
+-- Create the 2 meteors perpendicular to angle of travel of meteor
+function Meteor:split()
+
+    -- use parameters from big meteor to create parameters for smaller meteors
+    local newSpeed = self.speed + 1
+    local newSize = self.size / 4
+    local newAngle1 = self.angle - 90
+    local newAngle2 = self.angle + 90
+
+    if newSize >= 1 then
+        -- create smaller meteors
+        Meteor(newSpeed, newSize, newAngle1, self.scoreMult*2, self.x, self.y)
+        Meteor(newSpeed, newSize, newAngle2, self.scoreMult*2, self.x, self.y)
+    end
+
+    -- remove big meteor
+    self:remove()
+
 end

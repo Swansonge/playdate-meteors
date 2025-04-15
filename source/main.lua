@@ -11,11 +11,13 @@ import "globals"
 import "player"
 import "meteorSpawner"
 import "screenShake"
+import "scoreDisplay"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = playdate.geometry
 
+createScoreDisplay()
 PLAYER = Player(200, 120, 32)
 
 local screenShakeSprite = ScreenShake()

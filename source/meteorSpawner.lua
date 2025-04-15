@@ -10,7 +10,7 @@ local spawnTimer
 
 -- create timer object responsible for delaying spawn of meteors
 function createTimer()
-    local spawnTime = math.random(500, 700)
+    local spawnTime = math.random(500, 1000)
     spawnTimer = pd.timer.performAfterDelay(spawnTime, function ()
         createTimer()
         spawnMeteor()
@@ -20,9 +20,10 @@ end
 -- create meteor object
 function spawnMeteor()
     -- meteors can either come from one of the four sides of the screen. Side is chosen randomly on spawn.
+    local spawnSize = math.random(8,10)
     local spawnSide = math.random(4)
     local spawnX, spawnY, spawnAngle = getSpawnPosAngle(spawnSide)
-    Meteor(2, 8, spawnAngle, spawnX, spawnY)
+    Meteor(2, 8, spawnAngle, 1, spawnX, spawnY)
 end
 
 function startSpawner()
