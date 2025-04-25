@@ -47,9 +47,13 @@ function Meteor:update()
                 -- TRIGGER GAME OVVER!!
 
             elseif collidedObject:isa(Bullet) then
-                self:split()
                 setShakeAmount(2)
-                self:remove()
+                if self.size >= 8 then
+                    self:split()
+                else
+                    self:remove()
+                end
+                
 
             elseif collidedObject:isa(Meteor) then
                 -- reverse direction of movement
@@ -73,15 +77,15 @@ function Meteor:split()
 
     -- use parameters from big meteor to create parameters for smaller meteors
     local newSpeed = self.speed + 1
+    print('old size ' .. self.size)
     local newSize = self.size / 4
+    print('new size ' .. newSize)
     local newAngle1 = self.angle - 90
     local newAngle2 = self.angle + 90
 
-    if newSize >= 1 then
-        -- create smaller meteors
-        Meteor(newSpeed, newSize, newAngle1, self.scoreMult*2, self.x, self.y)
-        Meteor(newSpeed, newSize, newAngle2, self.scoreMult*2, self.x, self.y)
-    end
+    -- create smaller meteors
+    Meteor(newSpeed, newSize, newAngle1, self.scoreMult*2, self.x, self.y)
+    Meteor(newSpeed, newSize, newAngle2, self.scoreMult*2, self.x, self.y)
 
     -- remove big meteor
     self:remove()

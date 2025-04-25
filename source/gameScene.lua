@@ -19,7 +19,6 @@ end
 
 -- Initial setup of game scene where main action of game takes place
 function GameScene:setupGame()
-    print('game scene setup')
     createScoreDisplay()
     Player(200, 120, 24)
     startSpawner()
