@@ -12,6 +12,10 @@
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
 
+import "ScreenShake"
+
+screenShakeSprite = ScreenShake()
+
 class('SceneManager').extends(gfx.sprite)
 
 function SceneManager:init()
@@ -20,11 +24,11 @@ function SceneManager:init()
     self:setIgnoresDrawOffset(true)
     self:setCenter(0, 0)
     self:setZIndex(100)
-    self.transitionTime = 700
+    self.transitionTime = 350
     self.transitioningIn = false
 
-    self.transitionInSound = pd.sound.sampleplayer.new("sounds/transitionIn")
-    self.transitionOutSound = pd.sound.sampleplayer.new("sounds/transitionOut")
+    -- self.transitionInSound = pd.sound.sampleplayer.new("sounds/transitionIn")
+    -- self.transitionOutSound = pd.sound.sampleplayer.new("sounds/transitionOut")
 end
 
 -- Since functions are first class in Lua, I take in a function as "scene" and
@@ -38,8 +42,9 @@ function SceneManager:switchScene(scene)
     -- Using easing functions to make the animation smooth and satisfying
     self.transitionAnimator = gfx.animator.new(self.transitionTime, self.maskCircleRadius, 0, pd.easingFunctions.outCubic)
     self.transitioningIn = true
-    self.transitionInSound:play()
+    -- self.transitionInSound:play()
     self.newScene = scene
+
     self:add()
 end
 
@@ -50,6 +55,10 @@ function SceneManager:loadNewScene()
     -- Since the scene manager itself is a sprite, it removes itself, so you can just add it back
     -- right after.
     self:add()
+
+    -- screen shake sprite is also removed above, so it must be re-initialized
+    screenShakeSprite = ScreenShake()
+
     -- Initalizing the animator with the start and end values reversed to have the opposite transition
     -- animation
     self.transitionAnimator = gfx.animator.new(self.transitionTime, 0, self.maskCircleRadius, pd.easingFunctions.inCubic)
@@ -76,7 +85,7 @@ function SceneManager:update()
             -- confusing. I load the new scene here, so basically when the
             -- circle has closed all the way
             self:loadNewScene()
-            self.transitionOutSound:play()
+            -- self.transitionOutSound:play()
         elseif self.transitionAnimator:ended() then
             -- This is when the entire scene transition animation has ended
             self.transitionAnimator = nil
@@ -92,4 +101,9 @@ function SceneManager:getFilledScreenRect()
         gfx.fillRect(0, 0, 400, 240)
     gfx.popContext()
     return filledScreenRect
+end
+
+-- function for setting magnitude of screenshake
+function setShakeAmount(amount)
+    screenShakeSprite:setShakeAmount(amount)
 end

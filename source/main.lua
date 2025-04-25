@@ -9,23 +9,18 @@ import "CoreLibs/math"
 
 import "globals"
 import "sceneManager"
+import "titleScene"
 import "gameScene"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = playdate.geometry
 
-local screenShakeSprite = ScreenShake()
-
 SCENE_MANAGER = SceneManager()
 
-GameScene()
+TitleScene()
 
 function pd.update()
     gfx.sprite.update()
     pd.timer.updateTimers()
-end
-
-function setShakeAmount(amount)
-    screenShakeSprite:setShakeAmount(amount)
 end
