@@ -10,6 +10,8 @@ function Meteor:init(speed, size, angle, scoreMult, x, y)
     self.size = size * 2
     --default value from spawner is 1. Worth more then meteor splits
     self.scoreMult = scoreMult
+    -- indicates direction of movement
+    self.dir = 1
 
     -- draw meteor as circle
     local meteorImage = gfx.image.new(self.size * 2, self.size *2)
@@ -20,7 +22,7 @@ function Meteor:init(speed, size, angle, scoreMult, x, y)
 
     self:setCollideRect(0, 0, self:getSize())
     self:setGroups(METEOR_GROUP)
-    self:setCollidesWithGroups({PLAYER_GROUP, BULLET_GROUP})
+    self:setCollidesWithGroups({PLAYER_GROUP, BULLET_GROUP, METEOR_GROUP})
 
     self:moveTo(x, y)
     self:add()
@@ -29,8 +31,8 @@ end
 function Meteor:update()
 
     local x, y = calcAngleOffset(self.angle, self.speed, 0, 0)
-    local newX = self.x + x
-    local newY = self.y + y
+    local newX = self.x + x * self.dir
+    local newY = self.y + y * self.dir
     local actualX, actualY, collisions, length = self:moveWithCollisions(newX, newY)
 
     -- handle collisions
@@ -41,14 +43,21 @@ function Meteor:update()
                 collidedObject:remove()
 
                 setShakeAmount(5)
+                self:remove()
                 -- TRIGGER GAME OVVER!!
 
             elseif collidedObject:isa(Bullet) then
                 self:split()
                 setShakeAmount(2)
+                self:remove()
+
+            elseif collidedObject:isa(Meteor) then
+                -- reverse direction of movement
+                self.dir *= -1
+
             end
         end
-        self:remove()
+        
     end
 
     -- delete when out of bounds 
@@ -76,5 +85,17 @@ function Meteor:split()
 
     -- remove big meteor
     self:remove()
+
+end
+
+
+--collisionResponse callback for sprite. Called by moveWithCollisions()
+--if colliding with another meteor, bounce. If colliding with another object, freeze (object will be removed)
+function Meteor:collisionResponse(other)
+    if other.type == "meteor" then
+        return "bounce"
+    else
+        return "bounce"
+    end
 
 end
