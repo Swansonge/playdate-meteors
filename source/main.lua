@@ -8,21 +8,18 @@ import "CoreLibs/timer"
 import "CoreLibs/math"
 
 import "globals"
-import "player"
-import "meteorSpawner"
-import "screenShake"
-import "scoreDisplay"
+import "sceneManager"
+import "gameScene"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = playdate.geometry
 
-createScoreDisplay()
-PLAYER = Player(200, 120, 32)
-
 local screenShakeSprite = ScreenShake()
 
-startSpawner()
+SCENE_MANAGER = SceneManager()
+
+GameScene()
 
 function pd.update()
     gfx.sprite.update()

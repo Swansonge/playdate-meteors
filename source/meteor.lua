@@ -92,7 +92,7 @@ end
 --collisionResponse callback for sprite. Called by moveWithCollisions()
 --if colliding with another meteor, bounce. If colliding with another object, freeze (object will be removed)
 function Meteor:collisionResponse(other)
-    if other.type == "meteor" then
+    if other:isa(Meteor) then
         return "bounce"
     else
         return "bounce"
