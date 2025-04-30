@@ -107,3 +107,4 @@ end
 function setShakeAmount(amount)
     screenShakeSprite:setShakeAmount(amount)
 end
+

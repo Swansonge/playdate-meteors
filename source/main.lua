@@ -11,6 +11,7 @@ import "globals"
 import "sceneManager"
 import "titleScene"
 import "gameScene"
+import "gameOVerScene"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
@@ -23,4 +24,6 @@ TitleScene()
 function pd.update()
     gfx.sprite.update()
     pd.timer.updateTimers()
+    local spriteCount = gfx.sprite.spriteCount
+    print(spriteCount)
 end

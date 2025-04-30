@@ -3,6 +3,8 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = playdate.geometry
 
+import "meteorSpawner"
+import "gameOverScene"
 
 ------ VARIABLES -------
 --collision groups
@@ -10,7 +12,8 @@ PLAYER_GROUP = 1
 BULLET_GROUP = 2
 METEOR_GROUP = 3
 
-
+-- keep track of score across game
+SCORE = 0
 
 ------ FUNCTIONS -------
 -- Calculate position offsets for object moving at an angle. Use formula for calculating position on a circle. 
@@ -30,4 +33,10 @@ function calcAngleOffset(angle, r, cx, cy)
     local x = math.floor(cx + r * math.sin(math.rad(angle)))
     local y  = math.floor(cy - r * math.cos(math.rad(angle)))
     return x, y
+end
+
+--called when game over is triggered
+function gameOver()
+    stopSpawner()
+    SCENE_MANAGER:switchScene(GameOverScene)
 end

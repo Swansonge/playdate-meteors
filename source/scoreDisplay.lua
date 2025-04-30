@@ -5,11 +5,10 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 
 local scoreSprite
-local score
 
 function createScoreDisplay()
     scoreSprite = gfx.sprite.new()
-    score = 0
+    SCORE = 0
     updateDisplay()
     scoreSprite:setCenter(0, 0)
     scoreSprite:moveTo(320, 4)
@@ -22,7 +21,7 @@ function createScoreDisplay()
 end
 
 function updateDisplay()
-    local scoreText = "Score: " .. score
+    local scoreText = "Score: " .. SCORE
     local textWidth, textHeight = gfx.getTextSize(scoreText)
     local scoreImage = gfx.image.new(textWidth, textHeight)
     gfx.pushContext(scoreImage)
@@ -32,11 +31,11 @@ function updateDisplay()
 end
 
 function incrementScore(scoreMult)
-    score += scoreMult
+    SCORE += scoreMult
     updateDisplay()
 end
 
 function resetScore()
-    score = 0
+    SCORE = 0
     updateDisplay()
 end

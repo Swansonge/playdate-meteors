@@ -1,6 +1,8 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
+import "gameOverScene"
+
 class('Meteor').extends(gfx.sprite)
 
 function Meteor:init(speed, size, angle, scoreMult, x, y)
@@ -43,8 +45,8 @@ function Meteor:update()
                 collidedObject:remove()
 
                 setShakeAmount(5)
-                self:remove()
-                -- TRIGGER GAME OVVER!!
+                -- trigger game over
+                gameOver()
 
             elseif collidedObject:isa(Bullet) then
                 setShakeAmount(2)
