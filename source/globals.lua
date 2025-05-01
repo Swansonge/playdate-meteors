@@ -16,7 +16,7 @@ METEOR_GROUP = 3
 SCORE = 0
 
 -- keep track of game options/settings
-CRANK_CONTROLS = false --on by default
+CRANK_CONTROLS = true --on by default
 
 ------ FUNCTIONS -------
 -- Calculate position offsets for object moving at an angle. Use formula for calculating position on a circle. 
@@ -42,4 +42,11 @@ end
 function gameOver()
     stopSpawner()
     SCENE_MANAGER:switchScene(GameOverScene)
+end
+
+-- callback function called by menu:addCheckmarkMenuItem() in pd.gameWillPause() if checkMark is changed while using menu
+-- call before pd.gameWillResume()
+function updateCrankControls(value)
+    CRANK_CONTROLS = value
+    print("Crank controls changed to: ", CRANK_CONTROLS)
 end
