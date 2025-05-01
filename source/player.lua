@@ -14,7 +14,7 @@ class('Player').extends(gfx.sprite)
 function Player:init(xOffset, yOffset, side)
 
     self.dead = false
-    self.speed = 5
+    self.rotateSpeed = 8
 
     -- create player character triangle
     self.side = side
@@ -53,9 +53,20 @@ end
 
 function Player:update()
 
-    -- use crank to rotate player
-    self:setRotation(self:getRotation() + pd.getCrankChange())     
-
+    if CRANK_CONTROLS then
+        -- use crank to rotate player
+        self:setRotation(self:getRotation() + pd.getCrankChange())
+    else
+        -- press down to rotate in Playdate "positive" direction
+        if pd.buttonIsPressed(pd.kButtonDown) then
+            self:setRotation(self:getRotation() + self.rotateSpeed)    
+            
+        -- press up to rotate in the Playdate "negative" direction
+        elseif pd.buttonIsPressed(pd.kButtonUp) then
+            self:setRotation(self:getRotation() - self.rotateSpeed)
+        end
+    end
+    
     -- shoot bullets
     if pd.buttonJustPressed(pd.kButtonA) then
 

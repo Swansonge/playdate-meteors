@@ -24,6 +24,7 @@ TitleScene()
 function pd.update()
     gfx.sprite.update()
     pd.timer.updateTimers()
-    local spriteCount = gfx.sprite.spriteCount
-    print(spriteCount)
+    -- local spriteCount = gfx.sprite.spriteCount
+    -- print(spriteCount)
+
 end

@@ -45,12 +45,12 @@ function Meteor:update()
                 collidedObject:remove()
 
                 setShakeAmount(5)
-                -- trigger game over
                 gameOver()
 
             elseif collidedObject:isa(Bullet) then
                 setShakeAmount(2)
                 if self.size >= 8 then
+                    incrementScore(self.scoreMult)
                     self:split()
                 else
                     self:remove()

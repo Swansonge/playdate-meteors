@@ -15,6 +15,9 @@ METEOR_GROUP = 3
 -- keep track of score across game
 SCORE = 0
 
+-- keep track of game options/settings
+CRANK_CONTROLS = false --on by default
+
 ------ FUNCTIONS -------
 -- Calculate position offsets for object moving at an angle. Use formula for calculating position on a circle. 
 -- INnputs:
