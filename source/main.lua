@@ -17,6 +17,14 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = playdate.geometry
 
+-- keep track of score across game
+SCORE = 0
+HIGH_SCORE = 0
+
+-- load in saved data (high score and crank controls)
+loadGameDate()
+print("high score: " .. HIGH_SCORE)
+
 SCENE_MANAGER = SceneManager()
 
 TitleScene()
@@ -49,9 +57,20 @@ function pd.gameWillPause()
         gfx.fillRect(0, 0, 200, 240)
         -- draw text as white instead of black
         gfx.setImageDrawMode( gfx.kDrawModeFillWhite)
-        gfx.drawTextInRect('_Game Paused_', 0, 120, 200, 240, nil, "..", kTextAlignment.center)
+        gfx.drawTextAligned('_Game Paused_', 100, 100, kTextAlignment.center)
+        gfx.drawTextAligned('_High score: _' .. HIGH_SCORE, 100, 130, kTextAlignment.center)
         gfx.setImageDrawMode( gfx.kDrawModeCopy)
     gfx.popContext()
     pd.setMenuImage(menuImage)
     
+end
+
+-- Playdate documentation recommends saving game data before exiting the game
+function pd.gameWillTerminate()
+    saveGameData()
+end
+
+-- Playdate documentation recommends saving game data before console goes to sleep
+function pd.deviceWillSleep()
+    saveGameData()
 end

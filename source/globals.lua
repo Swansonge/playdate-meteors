@@ -12,9 +12,6 @@ PLAYER_GROUP = 1
 BULLET_GROUP = 2
 METEOR_GROUP = 3
 
--- keep track of score across game
-SCORE = 0
-
 -- keep track of game options/settings
 CRANK_CONTROLS = true --on by default
 
@@ -41,6 +38,7 @@ end
 --called when game over is triggered
 function gameOver()
     stopSpawner()
+    updateHighScore()
     SCENE_MANAGER:switchScene(GameOverScene)
 end
 
@@ -49,4 +47,30 @@ end
 function updateCrankControls(value)
     CRANK_CONTROLS = value
     print("Crank controls changed to: ", CRANK_CONTROLS)
+end
+
+-- save game data
+function saveGameData()
+    local gameData = {
+        highscore = HIGH_SCORE,
+        crankcontrols = CRANK_CONTROLS
+    }
+    pd.datastore.write(gameData)
+end
+
+-- load game data when re-opening game
+function loadGameDate()
+    local gameData = pd.datastore.read()
+    if gameData then
+        HIGH_SCORE = gameData.highscore
+        CRANK_CONTROLS = gameData.crankcontrols
+    end
+end
+
+-- function checks if current score is greater than saved high score.
+-- If so, update high score
+function updateHighScore()
+    if SCORE > HIGH_SCORE then
+        HIGH_SCORE = SCORE
+    end
 end
