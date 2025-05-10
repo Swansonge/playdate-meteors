@@ -28,6 +28,7 @@ print("high score: " .. HIGH_SCORE)
 SCENE_MANAGER = SceneManager()
 
 TitleScene()
+TITLE_THEME:play(0)
 
 -- runs every frame update (30 fps)
 function pd.update()
@@ -35,7 +36,6 @@ function pd.update()
     pd.timer.updateTimers()
     -- local spriteCount = gfx.sprite.spriteCount
     -- print(spriteCount)
-
 end
 
 

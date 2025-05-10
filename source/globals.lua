@@ -6,6 +6,9 @@ local geom <const> = playdate.geometry
 import "meteorSpawner"
 import "gameOverScene"
 
+
+
+
 ------ VARIABLES -------
 --collision groups
 PLAYER_GROUP = 1
@@ -14,6 +17,12 @@ METEOR_GROUP = 3
 
 -- keep track of game options/settings
 CRANK_CONTROLS = true --on by default
+
+-- music
+TITLE_THEME = pd.sound.fileplayer.new("music/meteors-title-theme")
+MAIN_MUSIC = pd.sound.fileplayer.new("music/meteors-game-music")
+
+
 
 ------ FUNCTIONS -------
 -- Calculate position offsets for object moving at an angle. Use formula for calculating position on a circle. 
@@ -37,6 +46,7 @@ end
 
 --called when game over is triggered
 function gameOver()
+    MAIN_MUSIC:stop()
     stopSpawner()
     updateHighScore()
     SCENE_MANAGER:switchScene(GameOverScene)

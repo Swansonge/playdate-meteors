@@ -23,6 +23,7 @@ function GameScene:setupGame()
     Player(200, 120, 24)
     startSpawner()
     self:add()
+    MAIN_MUSIC:play(0)
 end
 
 function GameScene:displayResults()
