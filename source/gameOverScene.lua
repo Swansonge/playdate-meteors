@@ -26,6 +26,8 @@ function GameOverScene:init()
     dialogSprite:add()
     
     self:add()
+
+    GAME_OVER_MUSIC:play(0)
 end
 
 function GameOverScene:update()
@@ -33,6 +35,8 @@ function GameOverScene:update()
     -- Start game from title screen
     if pd.buttonJustPressed(pd.kButtonA) then
         print('pressed the button')
+        GAME_OVER_MUSIC:stop()
+        MAIN_MUSIC:play(0)
         SCENE_MANAGER:switchScene(GameScene)
         SCORE = 0
     end

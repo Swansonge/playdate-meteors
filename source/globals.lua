@@ -21,6 +21,7 @@ CRANK_CONTROLS = true --on by default
 -- music
 TITLE_THEME = pd.sound.fileplayer.new("music/meteors-title-theme")
 MAIN_MUSIC = pd.sound.fileplayer.new("music/meteors-game-music")
+GAME_OVER_MUSIC = pd.sound.fileplayer.new("music/meteors-game-over")
 
 
 
