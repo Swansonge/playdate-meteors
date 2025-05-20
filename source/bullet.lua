@@ -29,7 +29,9 @@ function Bullet:init(x, y, speed, angle)
     self:moveTo(x, y)
     self:add()
     
-    SHOOT_SFX:play()
+    if SFX_ON then
+        SHOOT_SFX:play()
+    end
 end
 
 function Bullet:update()
@@ -39,17 +41,15 @@ function Bullet:update()
     local newY = self.y + y
     local actualX, actualY, collisions, length = self:moveWithCollisions(newX, newY)
 
-    -- delete when out of bounds 
-    if (actualX > 400) or (actualX < 0) or (actualY > 240) or (actualY < 0) then
-        self:remove()
-    end
-
     -- handle collisions
     if length > 0 then
         for index, collision in ipairs(collisions) do
             local collidedObject = collision['other']
             if collidedObject:isa(Meteor) then
-                METEOR_EXPLODE_SFX:play()
+                if SFX_ON then
+                    METEOR_EXPLODE_SFX:play()
+                end
+                
                 collidedObject:split()
                 incrementScore(collidedObject.scoreMult)
                 setShakeAmount(2)
@@ -57,6 +57,11 @@ function Bullet:update()
         end
         self:remove()
         
+    end
+
+    -- delete when out of bounds 
+    if (actualX > 400) or (actualX < 0) or (actualY > 240) or (actualY < 0) then
+        self:remove()
     end
     
 end

@@ -8,15 +8,16 @@ import "gameOverScene"
 
 
 
-
 ------ VARIABLES -------
 --collision groups
 PLAYER_GROUP = 1
 BULLET_GROUP = 2
 METEOR_GROUP = 3
 
--- keep track of game options/settings
-CRANK_CONTROLS = true --on by default
+-- keep track of game options/settings. All on (true) by default
+CRANK_CONTROLS = true 
+MUSIC_ON = true
+SFX_ON = true
 
 -- audio
 TITLE_THEME = pd.sound.fileplayer.new("music/meteors-title-theme")
@@ -27,6 +28,13 @@ SHOOT_SFX = pd.sound.sampleplayer.new("sfx/shoot")
 TRANSITION_SFX = pd.sound.sampleplayer.new("sfx/transition")
 METEOR_EXPLODE_SFX = pd.sound.sampleplayer.new("sfx/meteor_explode")
 PLAYER_DESTROYED_SFX = pd.sound.sampleplayer.new("sfx/player_destroyed")
+-- keep track of current song playing to be able to pause/unpause
+CURRENT_SONG = nil
+SONGS = {
+    title = TITLE_THEME,
+    main = MAIN_MUSIC,
+    game_over = GAME_OVER_MUSIC
+}
 
 
 ------ FUNCTIONS -------
@@ -57,11 +65,29 @@ function gameOver()
     SCENE_MANAGER:switchScene(GameOverScene)
 end
 
--- callback function called by menu:addCheckmarkMenuItem() in pd.gameWillPause() if checkMark is changed while using menu
--- call before pd.gameWillResume()
+-- callback function called by menu:addCheckmarkMenuItem() in pd.gameWillPause() if checkMark is changed while using menu. call before pd.gameWillResume()
+-- sets crank controls on/off
 function updateCrankControls(value)
     CRANK_CONTROLS = value
     print("Crank controls changed to: ", CRANK_CONTROLS)
+end
+
+-- callback function called by menu:addCheckmarkMenuItem() in pd.gameWillPause() if checkMark is changed while using menu. call before pd.gameWillResume()
+-- sets music on/off. This function will actually turn off/on music, not just set the flag.
+function updateMusicOnOff(value)
+    CURRENT_SONG:stop()
+    MUSIC_ON = value
+    if MUSIC_ON then
+        CURRENT_SONG:play()
+    end
+    print("music turned on? ", MUSIC_ON)
+end
+
+-- callback function called by menu:addCheckmarkMenuItem() in pd.gameWillPause() if checkMark is changed while using menu. call before pd.gameWillResume()
+-- sets sound effects on/off
+function updateSfxOnOff(value)
+    SFX_ON = value
+    print("Sound effects turned on? ", SFX_ON)
 end
 
 -- save game data

@@ -27,8 +27,10 @@ print("high score: " .. HIGH_SCORE)
 
 SCENE_MANAGER = SceneManager()
 
+-- set up title screen
 TitleScene()
-TITLE_THEME:play(0)
+CURRENT_SONG = SONGS.title
+CURRENT_SONG:play()
 
 
 -- runs every frame update (30 fps)
@@ -49,7 +51,9 @@ function pd.gameWillPause()
     -- only create menuItem if it doesn't already exist
     menuItemArr = menu:getMenuItems()
     if #menuItemArr == 0 then
-        local checkmarkMenuItem, error = menu:addCheckmarkMenuItem("Use crank", CRANK_CONTROLS, updateCrankControls)
+        local crankCheckmarkMenuItem, error = menu:addCheckmarkMenuItem("Use crank", CRANK_CONTROLS, updateCrankControls)
+        local musicCheckmarkMenuItem, error = menu:addCheckmarkMenuItem("Music on", MUSIC_ON, updateMusicOnOff)
+        local sfxCheckmarkMenuItem, error = menu:addCheckmarkMenuItem("SFX on", SFX_ON, updateSfxOnOff)
     end
 
     -- create menu image

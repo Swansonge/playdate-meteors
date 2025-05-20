@@ -27,17 +27,22 @@ function GameOverScene:init()
     
     self:add()
 
-    GAME_OVER_MUSIC:play(0)
+    CURRENT_SONG = SONGS.game_over
+    CURRENT_SONG:play()
 end
 
 function GameOverScene:update()
     
     -- Start game from title screen
     if pd.buttonJustPressed(pd.kButtonA) then
-        print('pressed the button')
-        TRANSITION_SFX:play()
+        if SFX_ON then
+            TRANSITION_SFX:play()
+        end
+        
         GAME_OVER_MUSIC:stop()
-        MAIN_MUSIC:play(0)
+        CURRENT_SONG = SONGS.main
+        CURRENT_SONG:play()
+
         SCENE_MANAGER:switchScene(GameScene)
         SCORE = 0
     end

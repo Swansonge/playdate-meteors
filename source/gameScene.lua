@@ -22,8 +22,11 @@ function GameScene:setupGame()
     createScoreDisplay()
     Player(200, 120, 24)
     startSpawner()
+    
     self:add()
-    MAIN_MUSIC:play(0)
+
+    CURRENT_SONG = SONGS.main
+    CURRENT_SONG:play(0)
 end
 
 function GameScene:displayResults()
