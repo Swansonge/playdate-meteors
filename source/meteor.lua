@@ -43,7 +43,7 @@ function Meteor:update()
             local collidedObject = collision['other']
             if collidedObject:isa(Player) then
                 collidedObject:remove()
-
+                PLAYER_DESTROYED_SFX:play()
                 setShakeAmount(5)
                 gameOver()
 
@@ -51,6 +51,7 @@ function Meteor:update()
                 setShakeAmount(2)
                 if self.size >= 8 then
                     incrementScore(self.scoreMult)
+                    METEOR_EXPLODE_SFX:play()
                     self:split()
                 else
                     self:remove()

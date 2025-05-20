@@ -26,6 +26,7 @@ function TitleScene:update()
     
     -- Start game from title screen
     if pd.buttonJustPressed(pd.kButtonA) then
+        TRANSITION_SFX:play()
         TITLE_THEME:stop()
         SCENE_MANAGER:switchScene(GameScene)
     end

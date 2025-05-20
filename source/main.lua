@@ -30,12 +30,13 @@ SCENE_MANAGER = SceneManager()
 TitleScene()
 TITLE_THEME:play(0)
 
+
 -- runs every frame update (30 fps)
 function pd.update()
     gfx.sprite.update()
     pd.timer.updateTimers()
-    -- local spriteCount = gfx.sprite.spriteCount
-    -- print(spriteCount)
+    local spriteCount = gfx.sprite.spriteCount()
+    print(spriteCount)
 end
 
 

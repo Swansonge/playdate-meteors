@@ -18,11 +18,15 @@ METEOR_GROUP = 3
 -- keep track of game options/settings
 CRANK_CONTROLS = true --on by default
 
--- music
+-- audio
 TITLE_THEME = pd.sound.fileplayer.new("music/meteors-title-theme")
 MAIN_MUSIC = pd.sound.fileplayer.new("music/meteors-game-music")
+MAIN_MUSIC:setVolume(0.8)
 GAME_OVER_MUSIC = pd.sound.fileplayer.new("music/meteors-game-over")
-
+SHOOT_SFX = pd.sound.sampleplayer.new("sfx/shoot")
+TRANSITION_SFX = pd.sound.sampleplayer.new("sfx/transition")
+METEOR_EXPLODE_SFX = pd.sound.sampleplayer.new("sfx/meteor_explode")
+PLAYER_DESTROYED_SFX = pd.sound.sampleplayer.new("sfx/player_destroyed")
 
 
 ------ FUNCTIONS -------

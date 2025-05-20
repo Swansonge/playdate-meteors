@@ -29,6 +29,7 @@ function Bullet:init(x, y, speed, angle)
     self:moveTo(x, y)
     self:add()
     
+    SHOOT_SFX:play()
 end
 
 function Bullet:update()
@@ -43,8 +44,7 @@ function Bullet:update()
         for index, collision in ipairs(collisions) do
             local collidedObject = collision['other']
             if collidedObject:isa(Meteor) then
-
-
+                METEOR_EXPLODE_SFX:play()
                 collidedObject:split()
                 incrementScore(collidedObject.scoreMult)
                 setShakeAmount(2)
