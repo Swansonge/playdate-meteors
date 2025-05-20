@@ -39,6 +39,11 @@ function Bullet:update()
     local newY = self.y + y
     local actualX, actualY, collisions, length = self:moveWithCollisions(newX, newY)
 
+    -- delete when out of bounds 
+    if (actualX > 400) or (actualX < 0) or (actualY > 240) or (actualY < 0) then
+        self:remove()
+    end
+
     -- handle collisions
     if length > 0 then
         for index, collision in ipairs(collisions) do
@@ -52,9 +57,6 @@ function Bullet:update()
         end
         self:remove()
         
-    -- delete when out of bounds 
-    elseif (actualX > 400) or (actualX < 0) or (actualY > 240) or (actualY < 0) then
-        self:remove()
     end
     
 end

@@ -37,6 +37,11 @@ function Meteor:update()
     local newY = self.y + y * self.dir
     local actualX, actualY, collisions, length = self:moveWithCollisions(newX, newY)
 
+    -- delete when out of bounds 
+    if (actualX > 410) or (actualX < -10) or (actualY > 250) or (actualY < -10) then
+        self:remove()
+    end
+
     -- handle collisions
     if length > 0 then
         for index, collision in ipairs(collisions) do
@@ -65,11 +70,6 @@ function Meteor:update()
             end
         end
         
-    end
-
-    -- delete when out of bounds 
-    if (actualX > 410) or (actualX < -10) or (actualY > 250) or (actualY < -10) then
-        self:remove()
     end
     
 end

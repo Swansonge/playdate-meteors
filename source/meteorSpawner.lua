@@ -13,7 +13,12 @@ function createTimer()
     local spawnTime = math.random(700, 1000)
     spawnTimer = pd.timer.performAfterDelay(spawnTime, function ()
         createTimer()
-        spawnMeteor()
+
+        -- prevent too many objects from spwaning on screen, which can cause game to crash (I think)
+        local spriteCount = gfx.sprite.spriteCount()
+        if spriteCount <=18 then
+            spawnMeteor()
+        end
     end)
 end
 
