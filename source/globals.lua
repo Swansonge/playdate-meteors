@@ -18,6 +18,9 @@ METEOR_GROUP = 3
 CRANK_CONTROLS = true 
 MUSIC_ON = true
 SFX_ON = true
+GAME_LANGUAGE = 'en'
+-- flag for keeping track of when language changes so it can be updated after exiting pause menu
+LANGUAGE_CHANGED = 0
 
 -- audio
 TITLE_THEME = pd.sound.fileplayer.new("music/meteors-title-theme")
@@ -88,6 +91,14 @@ end
 function updateSfxOnOff(value)
     SFX_ON = value
     print("Sound effects turned on? ", SFX_ON)
+end
+
+-- callback function called by menu:addOptionMenuItem() in pd.gameWillPause() if option is changed while using menu. call before pd.gameWillResume()
+-- change game language
+function updateLanguage(value)
+    GAME_LANGUAGE = value
+    LANGUAGE_CHANGED = 1
+    print("current game language " .. GAME_LANGUAGE)
 end
 
 -- save game data

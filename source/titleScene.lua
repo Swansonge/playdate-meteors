@@ -10,7 +10,7 @@ class('TitleScene').extends(gfx.sprite)
 function TitleScene:init()
     self.animating = false
 
-    local text = "Press A to start"
+    local text = gfx.getLocalizedText("start", GAME_LANGUAGE)
     local startImage = gfx.image.new(gfx.getTextSize(text))
     gfx.pushContext(startImage)
         gfx.drawText(text, 0 ,0)

@@ -10,13 +10,13 @@ class('GameOverScene').extends(gfx.sprite)
 function GameOverScene:init()
     self.animating = false
 
-    local gameOverText = "*GAME OVER*"
-    local scoreText = "Score: " .. SCORE
-    local highScoreText = "High score: " .. HIGH_SCORE
-    local restartText = "Press A to restart"
+    local gameOverText = "*" .. gfx.getLocalizedText("gameOver", GAME_LANGUAGE) .. "*"
+    local scoreText = gfx.getLocalizedText("score", GAME_LANGUAGE) .. ": " .. SCORE
+    local highScoreText = gfx.getLocalizedText("highScore", GAME_LANGUAGE) .. ": " .. HIGH_SCORE
+    local restartText = gfx.getLocalizedText("restart", GAME_LANGUAGE)
     local dialogImage = gfx.image.new(240, 140)
     gfx.pushContext(dialogImage)
-        gfx.drawTextAligned(gameOverText, 120, 10, kTextAlignment.center)
+        gfx.drawLocalizedTextAligned(gameOverText, 120, 10, kTextAlignment.center)
         gfx.drawTextAligned(scoreText, 120, 40, kTextAlignment.center)
         gfx.drawTextAligned(highScoreText, 120, 70, kTextAlignment.center)
         gfx.drawTextAligned(restartText, 120, 100, kTextAlignment.center)

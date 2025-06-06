@@ -53,17 +53,20 @@ function pd.gameWillPause()
     if #menuItemArr == 0 then
         local crankCheckmarkMenuItem, error = menu:addCheckmarkMenuItem("Use crank", CRANK_CONTROLS, updateCrankControls)
         local musicCheckmarkMenuItem, error = menu:addCheckmarkMenuItem("Music on", MUSIC_ON, updateMusicOnOff)
-        local sfxCheckmarkMenuItem, error = menu:addCheckmarkMenuItem("SFX on", SFX_ON, updateSfxOnOff)
+        local languageMenuItem, error = menu:addOptionsMenuItem("Language:", {"en", "jp"}, "en", updateLanguage)
     end
 
     -- create menu image
     local menuImage = gfx.image.new(400, 240)
     gfx.pushContext(menuImage)
+        local pauseText = gfx.getLocalizedText("pause", GAME_LANGUAGE)
+        local highScoreText = gfx.getLocalizedText("highScore", GAME_LANGUAGE) .. ": " .. HIGH_SCORE
+
         gfx.fillRect(0, 0, 200, 240)
         -- draw text as white instead of black
         gfx.setImageDrawMode( gfx.kDrawModeFillWhite)
-        gfx.drawTextAligned('_Game Paused_', 100, 100, kTextAlignment.center)
-        gfx.drawTextAligned('_High score: _' .. HIGH_SCORE, 100, 130, kTextAlignment.center)
+        gfx.drawTextAligned(pauseText, 100, 100, kTextAlignment.center)
+        gfx.drawTextAligned(highScoreText, 100, 130, kTextAlignment.center)
         gfx.setImageDrawMode( gfx.kDrawModeCopy)
     gfx.popContext()
     pd.setMenuImage(menuImage)

@@ -21,7 +21,7 @@ function createScoreDisplay()
 end
 
 function updateDisplay()
-    local scoreText = "Score: " .. SCORE
+    local scoreText = gfx.getLocalizedText("score", GAME_LANGUAGE) .. ": " .. SCORE
     local textWidth, textHeight = gfx.getTextSize(scoreText)
     local scoreImage = gfx.image.new(textWidth, textHeight)
     gfx.pushContext(scoreImage)
