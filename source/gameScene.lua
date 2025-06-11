@@ -43,3 +43,11 @@ function GameScene:displayResults()
     gfx.sprite.removeAll()
     ResultsDisplay(self, curHeight, snapshot)
 end
+
+function GameScene:update()
+    -- update language after changing settings in pause menu
+    if LANGUAGE_CHANGED == 1 then
+        updateDisplay()
+        LANGUAGE_CHANGED = 0
+    end
+end
