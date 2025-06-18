@@ -70,7 +70,7 @@ function Player:update()
     -- shoot bullets
     if pd.buttonJustPressed(pd.kButtonA) then
 
-        local x, y = calcAngleOffset(self:getRotation(), (self.h / 2) - 1, 0, -h/2)
+        local x, y = calcAngleOffset(self:getRotation(), (self.h / 2) - 1, 0, -self.h/2)
         local bulletX = self.x + x
         local bulletY = self.y + y
 
