@@ -6,6 +6,7 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 import "CoreLibs/math"
+import "CoreLibs/animator"
 
 import "globals"
 import "sceneManager"
