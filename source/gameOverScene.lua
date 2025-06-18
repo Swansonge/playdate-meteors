@@ -12,7 +12,6 @@ local dialogSprite
 function GameOverScene:init()
     self.animating = false
 
-    
     dialogSprite = gfx.sprite.new()
     self:updateText()
     dialogSprite:moveTo(200, 120)

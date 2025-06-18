@@ -23,11 +23,11 @@ HIGH_SCORE = 0
 
 -- load in saved data (high score and crank controls)
 loadGameDate()
-print("high score: " .. HIGH_SCORE)
 
 SCENE_MANAGER = SceneManager()
 
 -- set up title screen
+gfx.setFont(DEFAULT_FONT)
 TitleScene()
 CURRENT_SONG = SONGS.title
 CURRENT_SONG:play()
@@ -37,8 +37,8 @@ CURRENT_SONG:play()
 function pd.update()
     gfx.sprite.update()
     pd.timer.updateTimers()
-    local spriteCount = gfx.sprite.spriteCount()
-    print(spriteCount)
+    -- local spriteCount = gfx.sprite.spriteCount()
+    -- print(spriteCount)
 end
 
 

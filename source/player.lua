@@ -80,39 +80,3 @@ function Player:update()
     end
 
 end
-
-
--- Function to calculate vertices of equilateral triangle given length of one side
--- Inputs:
---  side (int) - length of the side of triangle
--- Outputs:
---  h (int) - height of the triangle
---  x1 (int) - x position of top vertex
---  y1 (int) - y position of top vertex
---  x2 (int) - x position of bottom left vertex
---  y2 (int) - y position of bottom left vertex
---  x3 (int) - x position of bottom right vertex
---  y3 (int) - y position of bottom right vertex
-function calcVertices(side, xOffset, yOffset)
-    
-    -- height of equilateral triangle: h = (1/2) * sqrt(3) * side
-    h = (1/2) * math.sqrt(3) * side
-    -- make h an int to fix to pixel length
-    h = math.floor(h)
-    
-    -- (x1,y1) is top point of (upright) triangle -> (side/2,0)
-    x1 = (side / 2)
-    y1 = 0
-
-    -- (x2,y2) is bottom left point, offset from first vertex by -side/2 in the x and h in the y -> (0,h) 
-    -- !note: positive y goings downwards on screen
-    x2 = 0
-    y2 = h
-
-    -- (x3,y3) is bottom right point, offset from first vertex by side/2 in the x and h in the y -> (side,h)
-    x3 = side
-    y3 = h
-
-    return h, x1, y1, x2, y2, x3, y3
-
-end
