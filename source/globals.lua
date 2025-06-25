@@ -21,6 +21,8 @@ SFX_ON = true
 GAME_LANGUAGE = 'en'
 -- flag for keeping track of when language changes so it can be updated after exiting pause menu
 LANGUAGE_CHANGED = 0
+-- flag for using UI to draw crank indicator
+DRAW_CRANK = 1
 
 -- fonts
 DEFAULT_FONT = playdate.graphics.font.new("fonts/Asheville-Sans-14-Light")
@@ -42,6 +44,9 @@ SONGS = {
     main = MAIN_MUSIC,
     game_over = GAME_OVER_MUSIC
 }
+
+-- keep track of current scene
+CURRENT_SCENE = "NIL"
 
 
 ------ FUNCTIONS -------
@@ -130,6 +135,12 @@ function updateHighScore()
         HIGH_SCORE = SCORE
     end
 end
+
+-- callback function when the timer for crank UI has ended
+function uiTimerCallback()
+    DRAW_CRANK = 0
+end
+
 
 -- Function to calculate vertices of equilateral triangle given length of one side
 -- Inputs:

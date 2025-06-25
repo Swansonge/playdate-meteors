@@ -27,6 +27,8 @@ function GameScene:setupGame()
 
     CURRENT_SONG = SONGS.main
     CURRENT_SONG:play(0)
+
+    CURRENT_SCENE = "GAME"
 end
 
 function GameScene:displayResults()
@@ -44,7 +46,8 @@ function GameScene:displayResults()
     ResultsDisplay(self, curHeight, snapshot)
 end
 
-function GameScene:update()
+function GameScene:update()    
+
     -- update language after changing settings in pause menu
     if LANGUAGE_CHANGED == 1 then
         updateDisplay()

@@ -21,6 +21,8 @@ function GameOverScene:init()
 
     CURRENT_SONG = SONGS.game_over
     CURRENT_SONG:play()
+
+    CURRENT_SCENE = "GAME_OVER"
 end
 
 function GameOverScene:update()

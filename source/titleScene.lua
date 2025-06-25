@@ -41,6 +41,8 @@ function TitleScene:init()
     self.animating = true
     
     self:add()
+
+    CURRENT_SCENE = "TITLE"
 end
 
 function TitleScene:update()

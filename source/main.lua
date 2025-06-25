@@ -7,6 +7,7 @@ import "CoreLibs/sprites"
 import "CoreLibs/timer"
 import "CoreLibs/math"
 import "CoreLibs/animator"
+import "CoreLibs/ui"
 
 import "globals"
 import "sceneManager"
@@ -33,11 +34,26 @@ TitleScene()
 CURRENT_SONG = SONGS.title
 CURRENT_SONG:play()
 
-
 -- runs every frame update (30 fps)
 function pd.update()
     gfx.sprite.update()
     pd.timer.updateTimers()
+
+    -- draw UI indicator that crank will be used. Only draw once, when player first reaches game scene
+    if CURRENT_SCENE == "GAME" then
+        if CRANK_CONTROLS then
+            if DRAW_CRANK==1 then
+
+                -- UI animation lasts ~2.1 sec
+                local uiTimer = pd.timer.new(2100, uiTimerCallback)
+                pd.ui.crankIndicator:draw()
+            end
+        -- if user turned off crank controls, disable ability to draw UI indicator
+        else
+            DRAW_CRANK = 0
+        end
+    end
+    
     -- local spriteCount = gfx.sprite.spriteCount()
     -- print(spriteCount)
 end
