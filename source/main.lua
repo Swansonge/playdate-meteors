@@ -10,10 +10,10 @@ import "CoreLibs/animator"
 import "CoreLibs/ui"
 
 import "globals"
-import "sceneManager"
-import "titleScene"
-import "gameScene"
-import "gameOVerScene"
+import "scripts/sceneManager"
+import "scripts/titleScene"
+import "scripts/gameScene"
+import "scripts/gameOVerScene"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics

@@ -1,0 +1,56 @@
+
+-- The class that handles initializing everything regarding
+-- the actual game scene
+
+local pd <const> = playdate
+local gfx <const> = pd.graphics
+
+import "player"
+import "meteorSpawner"
+import "scoreDisplay"
+import "screenShake"
+
+class('GameScene').extends(gfx.sprite)
+
+function GameScene:init()
+    math.randomseed(pd.getSecondsSinceEpoch())
+    self:setupGame()
+end
+
+-- Initial setup of game scene where main action of game takes place
+function GameScene:setupGame()
+    createScoreDisplay()
+    Player(200, 120, 24)
+    startSpawner()
+    
+    self:add()
+
+    CURRENT_SONG = SONGS.main
+    CURRENT_SONG:play(0)
+
+    CURRENT_SCENE = "GAME"
+end
+
+function GameScene:displayResults()
+    local curHeight = GET_CURRENT_HEIGHT()
+    -- Taking a screenshot of the last frame of the game
+    -- to have that nice fade effect
+    local snapshot = gfx.getDisplayImage()
+    -- Remembering to reset the draw offset, and therefore
+    -- the height!
+    gfx.setDrawOffset(0, 0)
+    -- We can get rid of everything related to the game
+    -- just by calling this, since everything is a sprite.
+    -- Nice!
+    gfx.sprite.removeAll()
+    ResultsDisplay(self, curHeight, snapshot)
+end
+
+function GameScene:update()    
+
+    -- update language after changing settings in pause menu
+    if LANGUAGE_CHANGED == 1 then
+        updateDisplay()
+        LANGUAGE_CHANGED = 0
+    end
+end

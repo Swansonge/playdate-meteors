@@ -3,8 +3,8 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = playdate.geometry
 
-import "meteorSpawner"
-import "gameOverScene"
+import "scripts/meteorSpawner"
+import "scripts/gameOverScene"
 
 
 
